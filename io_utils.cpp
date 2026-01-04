@@ -30,7 +30,6 @@ void displayMenu(){
 int getUserChoice() {
     int choice;
     while (true)
-        displayMenu();
         if (std::cin >> choice) {
             if (choice >= 1 && choice <= 7) {
                 return choice;

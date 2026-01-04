@@ -23,7 +23,7 @@ int main() {
             }
             int reflect = generateRandomNumber(0, 1);
             square = reflectSquare(square, reflect);
-            printSquareWithDelay(square, 250);
+            printSquareWithDelay(square, 100);
         }
             break;
         case 2:
