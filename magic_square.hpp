@@ -1,4 +1,5 @@
 #include <vector>
+bool isValidSquare(const std::vector<std::vector<int>>& square);
 std::vector<std::vector<int>> generateMagicSquare(int n);
 std::vector<std::vector<int>> rotateSquare(const std::vector<std::vector<int>>& square);
 std::vector<std::vector<int>> reflectSquare(const std::vector<std::vector<int>>& square, int diagonal);

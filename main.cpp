@@ -47,6 +47,10 @@ int main() {
             break;
         case 5:{
             std::cout << "Вы выбрали: Показать суммы строк, столбцов и дагоналей\n";
+            if (!isValidSquare(square)) {
+                std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+                break;
+            }
             std::vector<int> rows = getRowSums(square);
             std::vector<int> cols = getColSums(square);
             std::pair<int, int> diagonals = getDiagonalSums(square);

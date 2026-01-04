@@ -5,10 +5,36 @@
 #include <numeric>
 #include <set>
 
+bool isValidSquare(const std::vector<std::vector<int>>& square) {
+    // 1. Проверяем, не пустой ли квадрат
+    if (square.empty()) {
+        std::cerr << "Ошибка: Квадрат пуст (0 строк).\n";
+        return false;
+    }
+
+    // 2. Получаем размер первой строки как эталон
+    size_t expectedCols = square[0].size();
+
+    // 3. Проверяем, что количество строк равно количеству столбцов (квадратность)
+    if (square.size() != expectedCols) {
+        std::cerr << "Ошибка: Количество строк (" << square.size() << ") не равно количеству столбцов (" << expectedCols << ").\n";
+        return false;
+    }
+
+    for (size_t i = 1; i < square.size(); ++i) {
+        if (square[i].size() != expectedCols) {
+            std::cerr << "Ошибка: Строка " << i << " имеет длину " << square[i].size()  << ", ожидалось " << expectedCols << ".\n";
+            return false;
+        }
+    }
+
+    return true;
+}
+
 std::vector<std::vector<int>> generateMagicSquare(int n) {
     if (n <= 0 || n % 2 == 0) {
         std::cout << "Ошибка: введеное число должно быть положительным нечетным." << std::endl;
-        return std::vector<std::vector<int>>();
+        return std::vector<std::vector<int>>{};
     }
 
     std::vector<std::vector<int>> square(n, std::vector<int>(n, 0));
@@ -47,6 +73,10 @@ std::vector<std::vector<int>> generateMagicSquare(int n) {
 }
 
 std::vector<std::vector<int>> rotateSquare(const std::vector<std::vector<int>>& square) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return std::vector<std::vector<int>>{};
+    }
     int n = square.size();
     std::vector<std::vector<int>> rotated_square(n, std::vector<int>(n));
 
@@ -60,6 +90,10 @@ std::vector<std::vector<int>> rotateSquare(const std::vector<std::vector<int>>& 
 }
 
 std::vector<std::vector<int>> reflectSquare(const std::vector<std::vector<int>>& square, int diagonal) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return std::vector<std::vector<int>>{};
+    }
     int n = square.size();
     std::vector<std::vector<int>> reflected_square(n, std::vector<int>(n));
     for (int i = 0;i<n;i++){
@@ -76,6 +110,10 @@ std::vector<std::vector<int>> reflectSquare(const std::vector<std::vector<int>>&
 }
 
 bool isMagicSquare(const std::vector<std::vector<int>>& square) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return 1;
+    }
     int n = square.size();
 
     int target_sum = std::accumulate(square[0].begin(), square[0].end(), 0);
@@ -125,6 +163,10 @@ bool isMagicSquare(const std::vector<std::vector<int>>& square) {
 }
 
 std::vector<int> getRowSums(const std::vector<std::vector<int>>& square) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return std::vector<int>{};
+    }
     std::vector<int> rowSums;
     rowSums.reserve(square.size());
 
@@ -137,6 +179,10 @@ std::vector<int> getRowSums(const std::vector<std::vector<int>>& square) {
 }
 
 std::vector<int> getColSums(const std::vector<std::vector<int>>& square) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return std::vector<int>{};
+    }
     int n = square.size();
 
     std::vector<int> colSums(n, 0);
@@ -151,6 +197,10 @@ std::vector<int> getColSums(const std::vector<std::vector<int>>& square) {
 }
 
 std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
+    if (!isValidSquare(square)) {
+        std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
+        return {0,0};
+    }
     int n = square.size();
     int diag1_sum = 0;
     int diag2_sum = 0;
