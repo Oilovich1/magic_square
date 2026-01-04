@@ -72,6 +72,7 @@ std::vector<std::vector<int>> reflectSquare(const std::vector<std::vector<int>>&
             }
         }
     }
+    return square;
 }
 
 bool isMagicSquare(const std::vector<std::vector<int>>& square) {
