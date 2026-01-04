@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <numeric>
+#include <set>
 
 std::vector<std::vector<int>> generateMagicSquare(int n) {
     if (n <= 0 || n % 2 == 0) {
@@ -102,6 +103,61 @@ bool isMagicSquare(const std::vector<std::vector<int>>& square) {
     if (diag1_sum != target_sum || diag2_sum != target_sum) {
         return false;
     }
+
+    std::set<int> numbers;
+    int expected_max = n * n;
+
+    for (const auto& row : square) {
+        for (int num : row) {
+            if (num < 1 || num > expected_max) {
+                return false;
+            }
+            if (!numbers.insert(num).second) {
+                return false;
+            }
+        }
+    }
+    if (static_cast<int>(numbers.size()) != expected_max) {
+        return false;
+    }
     return true;
 }
 
+std::vector<int> getRowSums(const std::vector<std::vector<int>>& square) {
+    std::vector<int> rowSums;
+    rowSums.reserve(square.size());
+
+    for (const auto& row : square) {
+        int sum = std::accumulate(row.begin(), row.end(), 0);
+        rowSums.push_back(sum);
+    }
+
+    return rowSums;
+}
+
+std::vector<int> getColSums(const std::vector<std::vector<int>>& square) {
+    int n = square.size();
+
+    std::vector<int> colSums(n, 0);
+
+    for (int j = 0; j < n; ++j) {
+        for (int i = 0; i < n; ++i) {
+            colSums[j] += square[i][j];
+        }
+    }
+
+    return colSums;
+}
+
+std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
+    int n = square.size();
+    int diag1_sum = 0;
+    int diag2_sum = 0;
+
+    for (int i = 0; i < n; ++i) {
+        diag1_sum += square[i][i];
+        diag2_sum += square[i][n - 1 - i];
+    }
+
+    return std::make_pair(diag1_sum, diag2_sum);
+}
