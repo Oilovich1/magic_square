@@ -100,7 +100,7 @@ void printSquareWithDelay(const std::vector<std::vector<int>>& square, int delay
     std::cout << "--- Вывод завершён ---\n\n";
 }
 
-bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix) {
+bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix, int& size) {
     matrix.clear();
 
     std::ifstream file(filename);
@@ -160,5 +160,42 @@ bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int
         return false;
     }
 
+    size_t n = matrix.size();
+    for (const auto& row : matrix) {
+        if (row.size() != n) {
+            std::cerr << "Ошибка: Матрица в файле не является квадратной.\n";
+            matrix.clear();
+            return false;
+        }
+    }
+
+    size = static_cast<int>(n);
+    return true;
+}
+
+bool writeSquareToFile(const std::vector<std::vector<int>>& matrix) {
+    std::string filename;
+    std::cout << "Введите имя файла для сохранения квадрата: ";
+    std::cin.ignore();
+    std::getline(std::cin, filename);
+
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Ошибка: Не удалось открыть файл '" << filename << "' для записи.\n";
+        return false;
+    }
+
+    for (const auto& row : matrix) {
+        for (size_t j = 0; j < row.size(); ++j) {
+            file << row[j];
+            if (j < row.size() - 1) {
+                file << " "; 
+            }
+        }
+        file << "\n";
+    }
+
+    file.close();
+    std::cout << "Квадрат успешно записан в файл '" << filename << "'.\n";
     return true;
 }

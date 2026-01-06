@@ -31,7 +31,7 @@ int main() {
 			std::string filename;
 			std::cout << "Введите имя файла: ";
 			std::cin >> filename;
-            if (!readSquareFromFile(filename, square)) {
+            if (!readSquareFromFile(filename, square, size)) {
                 std::cout << "Ошибка: Не удалось загрузить квадрат из файла.\n";
                 break;
 			}
@@ -49,7 +49,10 @@ int main() {
             break;
         case 4:{
             std::cout << "Вы выбрали: Вывести текущий квадрат.\n";
-            printSquareWithDelay(square, 100);
+            if (isValidSquare(square))
+                printSquareWithDelay(square, 100);
+            else
+                std::cout << "Невозможно вывести текущий квадрат (пустой или это не квадрат)";
         }
             break;
         case 5:{
@@ -73,6 +76,12 @@ int main() {
             break;
         case 6:{
             std::cout << "Вы выбрали: Сохранить текущий квадрат в файл\n";
+            if (isValidSquare(square)) {
+                writeSquareToFile(square);
+            }
+            else {
+                std::cout << "Текущий квадрат невозможно записать в файл";
+            }
         }
             break;
         case 7:{

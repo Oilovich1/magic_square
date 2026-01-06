@@ -5,4 +5,5 @@ int getUserChoice();
 int getOddSize();
 void displayMenu();
 void printSquareWithDelay(const std::vector<std::vector<int>>& square, int delay_ms = 250);
-bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix);
+bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix, int& size);
+bool writeSquareToFile(const std::vector<std::vector<int>>& matrix);
