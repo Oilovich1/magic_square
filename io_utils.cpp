@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <fstream>
 #include <climits>
 #include "io_utils.hpp"
 
@@ -96,4 +98,67 @@ void printSquareWithDelay(const std::vector<std::vector<int>>& square, int delay
     }
 
     std::cout << "--- Вывод завершён ---\n\n";
+}
+
+bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix) {
+    matrix.clear();
+
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Ошибка: Не удалось открыть файл '" << filename << "' для чтения.\n";
+        return false;
+    }
+
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<int> row;
+        int num;
+
+        while (iss >> num) {
+            row.push_back(num);
+        }
+
+        if (iss.fail() && !iss.eof()) {
+            std::cerr << "Ошибка: Найден некорректный символ в строке файла: " << line << "\n";
+            file.close();
+            return false;
+        }
+
+        if (row.empty() && !line.empty()) {
+            std::istringstream check_iss(line);
+            if (check_iss >> num) {
+                std::string trimmed_line = line;
+                size_t start = trimmed_line.find_first_not_of(" \t\n\r\f\v");
+                if (start != std::string::npos) {
+                    trimmed_line = trimmed_line.substr(start);
+                    size_t end = trimmed_line.find_last_not_of(" \t\n\r\f\v");
+                    trimmed_line = trimmed_line.substr(0, end + 1);
+                }
+                if (!trimmed_line.empty()) {
+                    std::cerr << "Ошибка: Найден некорректный символ в строке файла (не число): " << line << "\n";
+                    file.close();
+                    return false;
+                }
+                continue;
+            }
+            else {
+                std::cerr << "Ошибка: Найден некорректный символ в строке файла (не число): " << line << "\n";
+                file.close();
+                return false;
+            }
+        }
+
+        matrix.push_back(row);
+    }
+
+    file.close();
+
+    if (matrix.empty()) {
+        std::cerr << "Ошибка: Файл '" << filename << "' пуст или не содержит чисел.\n";
+        return false;
+    }
+
+    return true;
 }

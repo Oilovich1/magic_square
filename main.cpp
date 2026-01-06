@@ -28,6 +28,13 @@ int main() {
             break;
         case 2:{
             std::cout << "Вы выбрали: Загрузить магический квадрат из файла.\n";
+			std::string filename;
+			std::cout << "Введите имя файла: ";
+			std::cin >> filename;
+            if (!readSquareFromFile(filename, square)) {
+                std::cout << "Ошибка: Не удалось загрузить квадрат из файла.\n";
+                break;
+			}
         }
              break;
         case 3:{
