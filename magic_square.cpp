@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 #include <set>
+#include <random>
 
 bool isValidSquare(const std::vector<std::vector<int>>& square) {
     if (square.empty()) {
@@ -216,4 +217,12 @@ std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square)
     }
 
     return std::make_pair(diag1_sum, diag2_sum);
+}
+
+int generateRandomNumber(int min, int max) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(min, max);
+
+    return dis(gen);
 }

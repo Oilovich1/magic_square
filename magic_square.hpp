@@ -7,3 +7,4 @@ bool isMagicSquare(const std::vector<std::vector<int>>& square);
 std::vector<int> getRowSums(const std::vector<std::vector<int>>& square);
 std::vector<int> getColSums(const std::vector<std::vector<int>>& square);
 std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square);
+int generateRandomNumber(int min, int max);

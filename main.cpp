@@ -1,6 +1,5 @@
 #include "io_utils.hpp"
 #include "magic_square.hpp"
-#include "utils.hpp"
 #include <iostream>
 
 int main() {
