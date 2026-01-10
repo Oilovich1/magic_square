@@ -18,7 +18,7 @@ void setupConsole() {
 }
 
 void displayMenu(){
-    std::cout << "\n=== Меню проекта \"Магический Квадрат\" ===\n";
+    std::cout << "=== Меню проекта \"Магический Квадрат\" ===\n";
     std::cout << "1. Сгенерировать магический квадрат (нечётный порядок)\n";
     std::cout << "2. Загрузить магический квадрат из файла\n";
     std::cout << "3. Проверить, является ли текущий квадрат магическим\n";
@@ -26,25 +26,39 @@ void displayMenu(){
     std::cout << "5. Показать суммы строк, столбцов и дагоналей\n";
     std::cout << "6. Сохранить текущий квадрат в файл\n";
     std::cout << "7. Выйти\n";
-    std::cout << "Введите номер пункта: ";
 }
 
 int getUserChoice() {
     int choice;
-    while (true)
-        if (std::cin >> choice) {
-            if (choice >= 1 && choice <= 7) {
-                return choice;
-            }
-            else {
-                std::cout << "Ошибка: Введите число от 1 до 7.\n";
-            }
+	std::string input; // нужна на случай некорректного ввода по типу "1abc"
+
+    while (true) {
+        std::cout << "Введите номер пункта: ";
+		std::cin.clear();
+        std::getline(std::cin, input);
+
+
+        if (input.empty()) {
+            continue;
+        }
+
+        std::istringstream iss(input);
+        if (!(iss >> choice)) {
+            std::cout << "Ошибка: Введите корректное число.\n";
+            continue;
+        }
+
+		if (!iss.eof()) { //если после числа есть ещё символы
+            std::cout << "Ошибка: Введите корректное число.\n";
+            continue;
+        }
+        if (choice >= 1 && choice <= 7) {
+            return choice;
         }
         else {
-            std::cout << "Ошибка: Введите корректное число.\n";
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
+            std::cout << "Ошибка: Введите число от 1 до 7.\n";
         }
+    }
 }
 
 int getOddSize() {
@@ -99,6 +113,7 @@ void printSquareWithDelay(const std::vector<std::vector<int>>& square, int delay
 
     std::cout << "--- Вывод завершён ---\n\n";
 }
+
 
 bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int>>& matrix, int& size) {
     matrix.clear();

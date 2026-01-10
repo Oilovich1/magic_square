@@ -10,6 +10,7 @@ int main() {
     std::vector<std::vector<int>> square;
     do {
         displayMenu();
+		std::cin.clear();
         userChoice = getUserChoice();
 
         switch (userChoice) {
@@ -23,7 +24,25 @@ int main() {
             }
             int reflect = generateRandomNumber(0, 1);
             square = reflectSquare(square, reflect);
-            printSquareWithDelay(square, 100);
+
+            const int print_confirm = 15;
+            if (size > print_confirm) {
+                std::cout << "Квадрат размера " << size << "x" << size << " большой. Вывести полностью в консоль? (y/yes/д/да): ";
+                std::string ans;
+                std::cin.clear();
+                std::cin.ignore(INT_MAX, '\n');
+                std::getline(std::cin, ans);
+
+                if (ans == "y" || ans == "yes" || ans == "д" || ans == "да") {
+                    printSquareWithDelay(square, 0);
+                }
+                else {
+                    std::cout << "Вывод большого квадрата отменён пользователем.\n";
+                }
+            }
+            else {
+                printSquareWithDelay(square, 100);
+            }
         }
             break;
         case 2:{
@@ -49,8 +68,26 @@ int main() {
             break;
         case 4:{
             std::cout << "Вы выбрали: Вывести текущий квадрат.\n";
-            if (isValidSquare(square))
-                printSquareWithDelay(square, 100);
+            if (isValidSquare(square)){
+                const int print_confirm = 15;
+                if (size > print_confirm) {
+                    std::cout << "Квадрат размера " << size << "x" << size << " большой. Вывести полностью в консоль? (y/yes/д/да): ";
+                    std::string ans;
+                    std::cin.clear();
+                    std::cin.ignore(INT_MAX, '\n');
+                    std::getline(std::cin, ans);
+
+                    if (ans == "y" || ans == "yes" || ans == "д" || ans == "да") {
+                        printSquareWithDelay(square, 0);
+                    }
+                    else {
+                        std::cout << "Вывод большого квадрата отменён пользователем.\n";
+                    }
+                }
+                else {
+                    printSquareWithDelay(square, 100);
+                }
+            }
             else
                 std::cout << "Невозможно вывести текущий квадрат";
         }
