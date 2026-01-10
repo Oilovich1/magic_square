@@ -52,7 +52,7 @@ int main() {
             if (isValidSquare(square))
                 printSquareWithDelay(square, 100);
             else
-                std::cout << "Ќевозможно вывести текущий квадрат (пустой или это не квадрат)";
+                std::cout << "Ќевозможно вывести текущий квадрат";
         }
             break;
         case 5:{

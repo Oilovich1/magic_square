@@ -106,6 +106,7 @@ bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Ошибка: Не удалось открыть файл '" << filename << "' для чтения.\n";
+        matrix.clear();
         return false;
     }
 
@@ -122,6 +123,7 @@ bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int
 
         if (iss.fail() && !iss.eof()) {
             std::cerr << "Ошибка: Найден некорректный символ в строке файла: " << line << "\n";
+            matrix.clear();
             file.close();
             return false;
         }
@@ -137,14 +139,16 @@ bool readSquareFromFile(const std::string& filename, std::vector<std::vector<int
                     trimmed_line = trimmed_line.substr(0, end + 1);
                 }
                 if (!trimmed_line.empty()) {
-                    std::cerr << "Ошибка: Найден некорректный символ в строке файла (не число): " << line << "\n";
+                    std::cerr << "Ошибка: Найден некорректный символ в строке файла: " << line << "\n";
+                    matrix.clear();
                     file.close();
                     return false;
                 }
                 continue;
             }
             else {
-                std::cerr << "Ошибка: Найден некорректный символ в строке файла (не число): " << line << "\n";
+                std::cerr << "Ошибка: Найден некорректный символ в строке файла: " << line << "\n";
+                matrix.clear();
                 file.close();
                 return false;
             }
