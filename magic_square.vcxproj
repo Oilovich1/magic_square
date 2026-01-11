@@ -131,9 +131,6 @@
     <ClInclude Include="io_utils.hpp" />
     <ClInclude Include="magic_square.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="square.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
