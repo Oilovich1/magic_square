@@ -5,6 +5,7 @@
 #include <numeric>
 #include <set>
 #include <random>
+#include <array>
 
 bool isValidSquare(const std::vector<std::vector<int>>& square) {
     if (square.empty()) {
@@ -202,10 +203,10 @@ std::vector<int> getColSums(const std::vector<std::vector<int>>& square) {
     return colSums;
 }
 
-std::vector<int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
+std::array<int,2> getDiagonalSums(const std::vector<std::vector<int>>& square) {
     if (!isValidSquare(square)) {
         std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
-        return {0,0};
+        return { 0,0 };
     }
     int n = square.size();
     int diag1_sum = 0;
@@ -215,7 +216,7 @@ std::vector<int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
         diag1_sum += square[i][i];
         diag2_sum += square[i][n - 1 - i];
     }
-	std::vector<int> diagonalSums = { diag1_sum, diag2_sum };
+	std::array<int,2> diagonalSums = { diag1_sum, diag2_sum };
     return diagonalSums;
 }
 

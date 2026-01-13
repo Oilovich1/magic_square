@@ -102,7 +102,7 @@ int main() {
             }
             std::vector<int> rows = getRowSums(square);
             std::vector<int> cols = getColSums(square);
-            std::vector<int> diagonals = getDiagonalSums(square);
+            std::array<int,2> diagonals = getDiagonalSums(square);
             for (int i = 0; i < size; i++) {
                 std::cout << "Сумма значений " << i + 1 << " ряда = " << rows[i] << std::endl;
             }
