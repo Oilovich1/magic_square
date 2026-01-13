@@ -102,15 +102,15 @@ int main() {
             }
             std::vector<int> rows = getRowSums(square);
             std::vector<int> cols = getColSums(square);
-            std::pair<int, int> diagonals = getDiagonalSums(square);
+            std::vector<int> diagonals = getDiagonalSums(square);
             for (int i = 0; i < size; i++) {
                 std::cout << "Сумма значений " << i + 1 << " ряда = " << rows[i] << std::endl;
             }
             for (int j = 0; j < size; j++) {
                 std::cout << "Сумма значений " << j + 1 << " столбца = " << cols[j] << std::endl;
             }
-            std::cout << "Сумма значений на главной диагонали = " << diagonals.first << std::endl;
-            std::cout << "Сумма значений на побочной диагонали = " << diagonals.second << std::endl;
+            std::cout << "Сумма значений на главной диагонали = " << diagonals[0] << std::endl;
+            std::cout << "Сумма значений на побочной диагонали = " << diagonals[1] << std::endl;
         }
             break;
         case 6:{

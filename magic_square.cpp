@@ -202,7 +202,7 @@ std::vector<int> getColSums(const std::vector<std::vector<int>>& square) {
     return colSums;
 }
 
-std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
+std::vector<int> getDiagonalSums(const std::vector<std::vector<int>>& square) {
     if (!isValidSquare(square)) {
         std::cout << "Ошибка: Получен некорректный квадрат. Операция не может быть выполнена.\n";
         return {0,0};
@@ -215,8 +215,8 @@ std::pair<int, int> getDiagonalSums(const std::vector<std::vector<int>>& square)
         diag1_sum += square[i][i];
         diag2_sum += square[i][n - 1 - i];
     }
-
-    return std::make_pair(diag1_sum, diag2_sum);
+	std::vector<int> diagonalSums = { diag1_sum, diag2_sum };
+    return diagonalSums;
 }
 
 int generateRandomNumber(int min, int max) {
